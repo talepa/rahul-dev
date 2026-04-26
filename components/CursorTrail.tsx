@@ -80,14 +80,16 @@ export default function CursorTrail({
 
     let pointers: Pointer[] = [pointerPrototype()];
 
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
     let config = {
-      SIM_RESOLUTION: SIM_RESOLUTION!,
-      DYE_RESOLUTION: DYE_RESOLUTION!,
-      CAPTURE_RESOLUTION: CAPTURE_RESOLUTION!,
+      SIM_RESOLUTION: isMobile ? 64 : SIM_RESOLUTION!,
+      DYE_RESOLUTION: isMobile ? 512 : DYE_RESOLUTION!,
+      CAPTURE_RESOLUTION: isMobile ? 256 : CAPTURE_RESOLUTION!,
       DENSITY_DISSIPATION: DENSITY_DISSIPATION!,
       VELOCITY_DISSIPATION: VELOCITY_DISSIPATION!,
       PRESSURE: PRESSURE!,
-      PRESSURE_ITERATIONS: PRESSURE_ITERATIONS!,
+      PRESSURE_ITERATIONS: isMobile ? 10 : PRESSURE_ITERATIONS!,
       CURL: CURL!,
       SPLAT_RADIUS: SPLAT_RADIUS!,
       SPLAT_FORCE: SPLAT_FORCE!,

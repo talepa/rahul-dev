@@ -8,7 +8,8 @@ function Particles() {
   const { mouse, viewport } = useThree()
   const particlesRef = useRef<THREE.Points>(null)
   
-  const particleCount = 1000
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  const particleCount = isMobile ? 300 : 1000
   
   const [positions, originalPositions] = useMemo(() => {
     const pos = new Float32Array(particleCount * 3)
@@ -78,7 +79,8 @@ function Particles() {
 function Connections() {
   const linesRef = useRef<THREE.LineSegments>(null)
   
-  const lineCount = 50
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  const lineCount = isMobile ? 20 : 50
   
   const positions = useMemo(() => {
     const pos = new Float32Array(lineCount * 6)

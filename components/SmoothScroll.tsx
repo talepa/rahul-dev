@@ -6,16 +6,22 @@ const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
   const contentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    // Detect mobile/touch devices
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 1024
+    
+    if (isMobile) return // Use native scrolling on mobile/tablets
+
     let current = 0
     let target = 0
     let ease = 0.075
+    let animationFrameId: number
 
     const smoothScroll = () => {
       current += (target - current) * ease
       if (contentRef.current) {
         contentRef.current.style.transform = `translate3d(0, ${-current}px, 0)`
       }
-      requestAnimationFrame(smoothScroll)
+      animationFrameId = requestAnimationFrame(smoothScroll)
     }
 
     const onScroll = () => {
@@ -28,7 +34,6 @@ const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
       }
     }
 
-    // ResizeObserver to track height changes
     const resizeObserver = new ResizeObserver(() => setHeight())
     if (contentRef.current) {
       resizeObserver.observe(contentRef.current)
@@ -37,7 +42,6 @@ const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
     window.addEventListener('scroll', onScroll)
     window.addEventListener('resize', setHeight)
     
-    // Virtual Scroll Initializer
     setHeight()
     smoothScroll()
 
@@ -45,12 +49,16 @@ const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', setHeight)
       resizeObserver.disconnect()
+      cancelAnimationFrame(animationFrameId)
       document.body.style.height = ''
     }
   }, [])
 
   return (
-    <div className="fixed top-0 left-0 w-full overflow-hidden will-change-transform" ref={contentRef}>
+    <div 
+      className="lg:fixed lg:top-0 lg:left-0 lg:w-full lg:overflow-hidden will-change-transform" 
+      ref={contentRef}
+    >
       {children}
     </div>
   )
