@@ -100,8 +100,10 @@ export default function CursorTrail({
       COLOR
     };
 
-    const { gl, ext } = getWebGLContext(canvas);
-    if (!gl || !ext) return;
+    const context = getWebGLContext(canvas);
+    if (!context.gl || !context.ext) return;
+    const gl = context.gl!;
+    const ext = context.ext!;
 
     if (!ext.supportLinearFiltering) {
       config.DYE_RESOLUTION = 256;
@@ -248,7 +250,7 @@ export default function CursorTrail({
       return keywordsString + source;
     }
 
-    function compileShader(type: number, source: string, keywords: string[] | null = null): WebGLShader | null {
+    const compileShader = (type: number, source: string, keywords: string[] | null = null): WebGLShader | null => {
       const shaderSource = addKeywords(source, keywords);
       const shader = gl.createShader(type);
       if (!shader) return null;
@@ -260,7 +262,7 @@ export default function CursorTrail({
       return shader;
     }
 
-    function createProgram(vertexShader: WebGLShader | null, fragmentShader: WebGLShader | null): WebGLProgram | null {
+    const createProgram = (vertexShader: WebGLShader | null, fragmentShader: WebGLShader | null): WebGLProgram | null => {
       if (!vertexShader || !fragmentShader) return null;
       const program = gl.createProgram();
       if (!program) return null;
@@ -273,7 +275,7 @@ export default function CursorTrail({
       return program;
     }
 
-    function getUniforms(program: WebGLProgram) {
+    const getUniforms = (program: WebGLProgram) => {
       let uniforms: Record<string, WebGLUniformLocation | null> = {};
       const uniformCount = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
       for (let i = 0; i < uniformCount; i++) {
@@ -283,7 +285,7 @@ export default function CursorTrail({
         }
       }
       return uniforms;
-    }
+    };
 
     class Program {
       program: WebGLProgram | null;
@@ -698,7 +700,7 @@ export default function CursorTrail({
     const gradienSubtractProgram = new Program(baseVertexShader, gradientSubtractShader);
     const displayMaterial = new Material(baseVertexShader, displayShaderSource);
 
-    function createFBO(w: number, h: number, internalFormat: number, format: number, type: number, param: number): FBO {
+    const createFBO = (w: number, h: number, internalFormat: number, format: number, type: number, param: number): FBO => {
       gl.activeTexture(gl.TEXTURE0);
       const texture = gl.createTexture()!;
       gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -729,7 +731,7 @@ export default function CursorTrail({
           return id;
         }
       };
-    }
+    };
 
     function createDoubleFBO(
       w: number,
