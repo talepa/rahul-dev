@@ -54,7 +54,7 @@ const IntroScreen = ({ onEnter }: IntroScreenProps) => {
              initial={{ opacity: 0 }}
              animate={{ opacity: 1 }}
              transition={{ delay: 0.6 }}
-             className="text-4xl md:text-6xl font-bold tracking-tighter text-white"
+             className="text-4xl md:text-7xl font-bold tracking-tighter text-white"
            >
              Rahul Talepa
            </motion.h1>
@@ -74,7 +74,7 @@ const IntroScreen = ({ onEnter }: IntroScreenProps) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1 }}
           onClick={handleEnter}
-          className="group relative px-10 py-5 bg-white text-black rounded-full font-bold text-xs tracking-[0.2em] uppercase overflow-hidden hover:scale-105 active:scale-95 transition-all"
+          className="group relative px-8 py-4 md:px-10 md:py-5 bg-white text-black rounded-full font-bold text-[10px] md:text-xs tracking-[0.2em] uppercase overflow-hidden hover:scale-105 active:scale-95 transition-all"
         >
           <div className="relative z-10 flex items-center gap-3">
              Explore My World <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

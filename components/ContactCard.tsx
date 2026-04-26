@@ -131,33 +131,33 @@ const ContactCard: React.FC<ContactCardProps> = ({ isOpen, onClose }) => {
                 </div>
 
                 {/* Card Content (Front) */}
-                <div className="absolute inset-0 p-8 flex flex-col justify-between" style={{ transform: "translateZ(50px)" }}>
+                <div className="absolute inset-0 p-4 sm:p-8 flex flex-col justify-between" style={{ transform: "translateZ(50px)" }}>
                   {/* Header */}
                   <div className="flex justify-between items-start">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-md">
-                        <Globe className="text-cyan-400" size={20} />
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-md">
+                        <Globe className="text-cyan-400" size={16} />
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-[10px] font-bold tracking-[0.3em] text-white/40 uppercase">Dossier Access</span>
-                        <span className="text-xs font-bold text-white tracking-widest uppercase">RA_TAL_DEV</span>
+                        <span className="text-[8px] sm:text-[10px] font-bold tracking-[0.3em] text-white/40 uppercase leading-tight">Dossier Access</span>
+                        <span className="text-[10px] sm:text-xs font-bold text-white tracking-widest uppercase">RA_TAL_DEV</span>
                       </div>
                     </div>
-                    <div className="text-[10px] font-mono text-white/20 tracking-tighter uppercase">
+                    <div className="text-[8px] sm:text-[10px] font-mono text-white/20 tracking-tighter uppercase">
                       SEC_LEVEL_04 / AUTH_SUCCESS
                     </div>
                   </div>
 
                   {/* Mid Section: Details */}
-                  <div className="space-y-4">
-                    <div className="text-2xl font-bold tracking-tighter text-white uppercase italic">
+                  <div className="space-y-2 sm:space-y-4">
+                    <div className="text-lg sm:text-2xl font-bold tracking-tighter text-white uppercase italic leading-tight">
                       {details.name}
                     </div>
-                    <div className="flex flex-col gap-1">
-                      <div className="text-[10px] font-mono text-blue-400 font-bold tracking-[0.2em] uppercase">
+                    <div className="flex flex-col gap-0.5 sm:gap-1">
+                      <div className="text-[8px] sm:text-[10px] font-mono text-blue-400 font-bold tracking-[0.2em] uppercase">
                         {details.role}
                       </div>
-                      <div className="text-[9px] font-mono text-white/30 tracking-widest uppercase">
+                      <div className="text-[8px] sm:text-[10px] font-mono text-white/30 tracking-widest uppercase">
                         {details.location}
                       </div>
                     </div>
@@ -165,12 +165,12 @@ const ContactCard: React.FC<ContactCardProps> = ({ isOpen, onClose }) => {
 
                   {/* Footer/Chip */}
                   <div className="flex justify-between items-end">
-                    <div className="w-14 h-10 rounded-lg bg-gradient-to-br from-yellow-500/80 to-yellow-200/80 border border-white/20 shadow-lg relative overflow-hidden">
+                    <div className="w-10 h-7 sm:w-14 sm:h-10 rounded-md sm:rounded-lg bg-gradient-to-br from-yellow-500/80 to-yellow-200/80 border border-white/20 shadow-lg relative overflow-hidden">
                       <div className="absolute inset-0 grid grid-cols-3 gap-px opacity-20 bg-black" />
                     </div>
-                    <div className="flex gap-2">
-                      <div className="w-8 h-8 rounded-full bg-red-500/80 blur-[2px] opacity-60" />
-                      <div className="w-8 h-8 rounded-full bg-yellow-500/80 blur-[2px] opacity-60 -ml-4" />
+                    <div className="flex gap-1.5 sm:gap-2">
+                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-red-500/80 blur-[1px] sm:blur-[2px] opacity-60" />
+                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-yellow-500/80 blur-[1px] sm:blur-[2px] opacity-60 -ml-3 sm:-ml-4" />
                     </div>
                   </div>
                 </div>

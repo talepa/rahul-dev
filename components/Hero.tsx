@@ -73,7 +73,7 @@ const Hero = () => {
             className="space-y-4"
           >
             <span className="text-xs font-semibold tracking-[0.3em] text-white/40 uppercase">AI Engineer Prototype</span>
-            <h1 className="text-[clamp(3.5rem,10vw,7rem)] font-bold tracking-tighter leading-[0.9] flex flex-col">
+            <h1 className="text-[clamp(2.5rem,12vw,7rem)] font-bold tracking-tighter leading-[0.9] flex flex-col">
               <span className="text-white">Rahul</span>
               <span className="text-white/40">Talepa</span>
             </h1>

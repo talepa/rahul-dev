@@ -63,6 +63,22 @@ export default function Navbar({ onContactClick }: { onContactClick: () => void 
     </motion.button>
   );
 
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const id = href.replace('#', '');
+    const element = document.getElementById(id);
+    if (element) {
+      // Find the offset of the element relative to its container within SmoothScroll
+      const offset = element.offsetTop;
+      window.scrollTo({
+        top: offset,
+        behavior: 'auto' // Let SmoothScroll handle the easing
+      });
+      setIsOpen(false);
+      setIsExpanded(false);
+    }
+  };
+
   const navLinksData = [
     { label: 'About', href: '#about' },
     { label: 'Experience', href: '#experience' },
@@ -107,7 +123,7 @@ export default function Navbar({ onContactClick }: { onContactClick: () => void 
                        border border-white/10 bg-[#02020557]
                        transition-[border-radius] duration-300 ease-in-out px-2 shadow-2xl overflow-hidden`}
       animate={{ 
-        width: isExpanded ? 'auto' : '60px',
+        width: isExpanded ? 'auto' : '64px',
         paddingLeft: isExpanded ? '1.5rem' : '0.5rem',
         paddingRight: isExpanded ? '1.5rem' : '0.5rem',
       }}
@@ -124,9 +140,17 @@ export default function Navbar({ onContactClick }: { onContactClick: () => void 
         >
           <nav className="hidden lg:flex items-center space-x-8">
             {navLinksData.map((link) => (
-              <AnimatedNavLink key={link.href} href={link.href}>
-                {link.label}
-              </AnimatedNavLink>
+              <a 
+                key={link.href} 
+                href={link.href} 
+                onClick={(e) => scrollToSection(e, link.href)}
+                className="group relative inline-block overflow-hidden h-[14px] text-[10px] font-bold tracking-[0.2em] uppercase"
+              >
+                 <div className="flex flex-col transition-transform duration-500 ease-out transform group-hover:-translate-y-1/2">
+                  <span className="text-white/40 h-[14px] flex items-center justify-center">{link.label}</span>
+                  <span className="text-white h-[14px] flex items-center justify-center">{link.label}</span>
+                </div>
+              </a>
             ))}
           </nav>
 
@@ -157,7 +181,12 @@ export default function Navbar({ onContactClick }: { onContactClick: () => void 
           >
             <nav className="flex flex-col items-center space-y-6 text-[10px] font-bold tracking-widest uppercase w-full pt-8">
               {navLinksData.map((link) => (
-                <a key={link.href} href={link.href} onClick={() => setIsOpen(false)} className="text-white/60 hover:text-white transition-colors w-full text-center">
+                <a 
+                  key={link.href} 
+                  href={link.href} 
+                  onClick={(e) => scrollToSection(e, link.href)} 
+                  className="text-white/40 hover:text-white transition-colors w-full text-center"
+                >
                   {link.label}
                 </a>
               ))}
