@@ -251,32 +251,36 @@ export default function CursorTrail({
     }
 
     const compileShader = (type: number, source: string, keywords: string[] | null = null): WebGLShader | null => {
+      if (!gl) return null;
       const shaderSource = addKeywords(source, keywords);
       const shader = gl.createShader(type);
       if (!shader) return null;
       gl.shaderSource(shader, shaderSource);
       gl.compileShader(shader);
       if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        console.trace(gl.getShaderInfoLog(shader));
+        console.warn('Shader compile error:', gl.getShaderInfoLog(shader));
+        return null;
       }
       return shader;
-    }
+    };
 
     const createProgram = (vertexShader: WebGLShader | null, fragmentShader: WebGLShader | null): WebGLProgram | null => {
-      if (!vertexShader || !fragmentShader) return null;
+      if (!gl || !vertexShader || !fragmentShader) return null;
       const program = gl.createProgram();
       if (!program) return null;
       gl.attachShader(program, vertexShader);
       gl.attachShader(program, fragmentShader);
       gl.linkProgram(program);
       if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        console.trace(gl.getProgramInfoLog(program));
+        console.warn('Program link error:', gl.getProgramInfoLog(program));
+        return null;
       }
       return program;
-    }
+    };
 
     const getUniforms = (program: WebGLProgram) => {
       let uniforms: Record<string, WebGLUniformLocation | null> = {};
+      if (!gl) return uniforms;
       const uniformCount = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
       for (let i = 0; i < uniformCount; i++) {
         const uniformInfo = gl.getActiveUniform(program, i);
@@ -879,11 +883,12 @@ export default function CursorTrail({
     }
 
     function resizeCanvas() {
-      const width = scaleByPixelRatio(canvas!.clientWidth);
-      const height = scaleByPixelRatio(canvas!.clientHeight);
-      if (canvas!.width !== width || canvas!.height !== height) {
-        canvas!.width = width;
-        canvas!.height = height;
+      if (!canvas) return false;
+      const width = scaleByPixelRatio(canvas.clientWidth);
+      const height = scaleByPixelRatio(canvas.clientHeight);
+      if (canvas.width !== width || canvas.height !== height) {
+        canvas.width = width;
+        canvas.height = height;
         return true;
       }
       return false;
@@ -909,6 +914,7 @@ export default function CursorTrail({
     }
 
     function step(dt: number) {
+      if (!gl) return;
       gl.disable(gl.BLEND);
 
       curlProgram.bind();
