@@ -96,22 +96,7 @@ export default function Navbar({ onContactClick }: { onContactClick: () => void 
     </a>
   );
 
-  const signupButtonElement = (
-    <div className="relative group w-full sm:w-auto">
-       <div className="absolute inset-0 -m-1 rounded-full
-                     hidden sm:block
-                     bg-blue-500
-                     opacity-20 filter blur-lg pointer-events-none
-                     transition-all duration-300 ease-out
-                     group-hover:opacity-40 group-hover:blur-xl group-hover:-m-2"></div>
-       <button 
-         onClick={onContactClick}
-         className="relative z-10 block px-6 py-2 sm:px-5 text-[10px] font-bold tracking-widest uppercase text-black bg-gradient-to-br from-white to-gray-300 rounded-full hover:from-white hover:to-white transition-all duration-200 w-full sm:w-auto text-center whitespace-nowrap"
-       >
-         Let's Chat
-       </button>
-    </div>
-  );
+
 
   return (
     <motion.header 
@@ -156,7 +141,6 @@ export default function Navbar({ onContactClick }: { onContactClick: () => void 
 
           <div className="hidden sm:flex items-center gap-3">
             {loginButtonElement}
-            {signupButtonElement}
           </div>
         </motion.div>
 
@@ -193,17 +177,7 @@ export default function Navbar({ onContactClick }: { onContactClick: () => void 
             </nav>
             <div className="flex flex-col items-center space-y-4 mt-8 w-full pb-6">
               {loginButtonElement}
-              <div className="w-full">
-                <button 
-                  onClick={() => {
-                    onContactClick();
-                    setIsOpen(false);
-                  }}
-                  className="relative z-10 block px-6 py-3 text-[10px] font-bold tracking-widest uppercase text-black bg-gradient-to-br from-white to-gray-300 rounded-full hover:from-white hover:to-white transition-all duration-200 w-full text-center"
-                >
-                  Let's Chat
-                </button>
-              </div>
+
             </div>
           </motion.div>
         )}

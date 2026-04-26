@@ -1,7 +1,7 @@
 import { motion, useSpring, useMotionValue } from 'framer-motion'
 import { useEffect, useState, useRef } from 'react'
 import { Button } from './ui/button'
-import { ArrowDown, Github, Linkedin, Mail, Calendar } from 'lucide-react'
+import { ArrowDown, Github, Linkedin, Mail, Calendar, User } from 'lucide-react'
 import ParticleNetwork from './ParticleNetwork'
 
 const Magnetic = ({ children }: { children: React.ReactNode }) => {
@@ -43,7 +43,7 @@ const Magnetic = ({ children }: { children: React.ReactNode }) => {
 
 import { SparklesCore } from './SparklesCore'
 
-const Hero = () => {
+const Hero = ({ onContactClick }: { onContactClick: () => void }) => {
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
       {/* Sparkles Background Layer */}
@@ -87,7 +87,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="flex items-center gap-6"
+            className="flex flex-wrap items-center gap-4 sm:gap-6"
           >
             <a href="#projects" className="group relative glass px-8 py-4 rounded-2xl flex items-center gap-3 hover:bg-white/5 transition-all active:scale-95 border border-white/5">
               <div className="p-2 rounded-lg bg-white/5">
@@ -95,7 +95,17 @@ const Hero = () => {
               </div>
               <span className="font-semibold tracking-tight text-white/90">Explore My Work</span>
             </a>
-            <div className="flex flex-col">
+            
+            <button 
+              onClick={onContactClick}
+              className="group relative glass-strong px-8 py-4 rounded-2xl flex items-center gap-3 text-white/90 hover:bg-white/5 transition-all active:scale-95 border border-white/10 overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-blue-500/5 group-hover:bg-blue-500/10 transition-colors" />
+              <User className="w-5 h-5 text-blue-400 group-hover:scale-110 transition-transform" />
+              <span className="font-semibold tracking-tight">My Profile Card</span>
+            </button>
+
+            <div className="flex flex-col pl-2 border-l border-white/10">
                <span className="text-[10px] font-mono text-white/20 uppercase tracking-widest">Base_Location</span>
                <span className="text-xs font-bold text-white/60 tracking-tight">Mumbai, India</span>
             </div>

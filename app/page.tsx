@@ -52,7 +52,7 @@ export default function Home() {
           <Navbar onContactClick={() => setIsContactOpen(true)} />
 
           <SmoothScroll>
-            <Hero />
+            <Hero onContactClick={() => setIsContactOpen(true)} />
             
             <ScrollSection id="about">
               <About />

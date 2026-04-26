@@ -39,8 +39,25 @@ const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
       resizeObserver.observe(contentRef.current)
     }
 
+    const onHashClick = (e: MouseEvent) => {
+      const targetEl = e.target as HTMLElement;
+      const link = targetEl.closest('a');
+      if (link && link.hash && link.hash.startsWith('#')) {
+        const id = link.hash.substring(1);
+        const element = document.getElementById(id);
+        if (element) {
+          e.preventDefault();
+          const rect = element.getBoundingClientRect();
+          const winScroll = window.scrollY || window.pageYOffset;
+          target = rect.top + winScroll;
+          window.scrollTo(0, target);
+        }
+      }
+    };
+
     window.addEventListener('scroll', onScroll)
     window.addEventListener('resize', setHeight)
+    window.addEventListener('click', onHashClick)
     
     setHeight()
     smoothScroll()
@@ -48,6 +65,7 @@ const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
     return () => {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', setHeight)
+      window.removeEventListener('click', onHashClick)
       resizeObserver.disconnect()
       cancelAnimationFrame(animationFrameId)
       document.body.style.height = ''
