@@ -51,41 +51,41 @@ export default function Home() {
           <EasterEgg />
           <Navbar onContactClick={() => setIsContactOpen(true)} />
 
-          <SmoothScroll>
+          <div className="relative">
             <Hero onContactClick={() => setIsContactOpen(true)} />
-            
+
             <ScrollSection id="about">
               <About />
             </ScrollSection>
-            
+
             <ScrollSection id="experience">
               <Experience />
             </ScrollSection>
-            
+
             <ScrollSection id="projects">
               <Projects />
             </ScrollSection>
-            
+
             <ScrollSection id="publications">
               <Publications />
             </ScrollSection>
-            
+
             <ScrollSection id="skills">
               <Skills />
             </ScrollSection>
-            
+
             <ScrollSection id="github">
               <GitHubSection />
             </ScrollSection>
-            
+
             <ScrollSection id="contact">
               <Contact />
             </ScrollSection>
-            
+
             <ScrollSection id="footer">
               <Footer />
             </ScrollSection>
-          </SmoothScroll>
+          </div>
         </motion.div>
       )}
     </main>

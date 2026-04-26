@@ -68,11 +68,9 @@ export default function Navbar({ onContactClick }: { onContactClick: () => void 
     const id = href.replace('#', '');
     const element = document.getElementById(id);
     if (element) {
-      // Find the offset of the element relative to its container within SmoothScroll
-      const offset = element.offsetTop;
-      window.scrollTo({
-        top: offset,
-        behavior: 'auto' // Let SmoothScroll handle the easing
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
       });
       setIsOpen(false);
       setIsExpanded(false);
