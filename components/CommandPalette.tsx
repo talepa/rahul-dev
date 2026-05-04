@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, Command } from 'lucide-react'
+import { personal } from '@/lib/personal'
 
 interface CommandItem {
   id: string
@@ -48,12 +49,32 @@ const CommandPalette = () => {
       },
     },
     {
-      id: 'skills',
-      title: 'Technical Skills',
-      subtitle: 'View my expertise',
+      id: 'certifications',
+      title: 'Certifications',
+      subtitle: 'Licenses & credentials',
+      icon: '📜',
+      action: () => {
+        document.getElementById('certifications')?.scrollIntoView({ behavior: 'smooth' })
+        setIsOpen(false)
+      },
+    },
+    {
+      id: 'research',
+      title: 'Research',
+      subtitle: 'Publication & paper',
+      icon: '📑',
+      action: () => {
+        document.getElementById('research')?.scrollIntoView({ behavior: 'smooth' })
+        setIsOpen(false)
+      },
+    },
+    {
+      id: 'stack',
+      title: 'Technical stack',
+      subtitle: 'Languages & tools',
       icon: '⚡',
       action: () => {
-        document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })
+        document.getElementById('stack')?.scrollIntoView({ behavior: 'smooth' })
         setIsOpen(false)
       },
     },
@@ -73,7 +94,7 @@ const CommandPalette = () => {
       subtitle: 'View my code',
       icon: '💻',
       action: () => {
-        window.open('https://github.com/talepa', '_blank')
+        window.open(personal.githubUrl, '_blank')
         setIsOpen(false)
       },
     },
@@ -83,17 +104,17 @@ const CommandPalette = () => {
       subtitle: 'Connect professionally',
       icon: '🔗',
       action: () => {
-        window.open('https://www.linkedin.com/in/rahultalepa/', '_blank')
+        window.open(personal.linkedinUrl, '_blank')
         setIsOpen(false)
       },
     },
     {
       id: 'email',
       title: 'Send Email',
-      subtitle: 'talepa.rahul6@gmail.com',
+      subtitle: personal.email,
       icon: '✉️',
       action: () => {
-        window.location.href = 'mailto:talepa.rahul6@gmail.com'
+        window.location.href = `mailto:${personal.email}`
         setIsOpen(false)
       },
     },
@@ -103,7 +124,7 @@ const CommandPalette = () => {
       subtitle: 'Get PDF copy',
       icon: '📄',
       action: () => {
-        window.open('/resume.pdf', '_blank')
+        window.open(personal.resumeUrl, '_blank')
         setIsOpen(false)
       },
     },

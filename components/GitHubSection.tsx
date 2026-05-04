@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import { Github, Star, GitFork, Code } from 'lucide-react'
+import { personal } from '@/lib/personal'
 
 interface Repository {
   id: number
@@ -26,7 +27,9 @@ const GitHubSection = () => {
     // Fetch GitHub repos
     const fetchRepos = async () => {
       try {
-        const response = await fetch('https://api.github.com/users/talepa/repos?sort=updated&per_page=6')
+        const response = await fetch(
+          `https://api.github.com/users/${personal.githubUsername}/repos?sort=updated&per_page=6`
+        )
         const data = await response.json()
         setRepos(data)
       } catch (error) {
@@ -37,7 +40,7 @@ const GitHubSection = () => {
             id: 1,
             name: 'dynamic-bottleneck-detection',
             description: 'ML pipeline for predicting operational bottlenecks in e-commerce systems',
-            html_url: 'https://github.com/talepa',
+            html_url: personal.githubUrl,
             stargazers_count: 12,
             forks_count: 3,
             language: 'Python',
@@ -47,7 +50,7 @@ const GitHubSection = () => {
             id: 2,
             name: 'ghost-order-detector',
             description: 'Risk prediction system for food delivery operations',
-            html_url: 'https://github.com/talepa',
+            html_url: personal.githubUrl,
             stargazers_count: 8,
             forks_count: 2,
             language: 'Python',
@@ -176,7 +179,7 @@ const GitHubSection = () => {
             className="text-center mt-12"
           >
             <a
-              href="https://github.com/talepa"
+              href={personal.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 glass-strong rounded-lg border-2 border-neon-blue/30 hover:border-neon-blue hover:neon-glow transition-all group"

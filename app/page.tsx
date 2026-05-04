@@ -1,93 +1,40 @@
-'use client'
+"use client"
 
-import React, { useState } from 'react'
+import { useState } from "react"
+import ContactCard from "@/components/ContactCard"
+import CommandPalette from "@/components/CommandPalette"
 
-import Hero from '@/components/Hero'
-import About from '@/components/About'
-import Experience from '@/components/Experience'
-import Projects from '@/components/Projects'
-import Publications from '@/components/Publications'
-import Skills from '@/components/Skills'
-import GitHubSection from '@/components/GitHubSection'
-import Contact from '@/components/Contact'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import CursorTrail from '@/components/CursorTrail'
-import DynamicBackground from '@/components/DynamicBackground'
-import ContactCard from '@/components/ContactCard'
-import CommandPalette from '@/components/CommandPalette'
-import EasterEgg from '@/components/EasterEgg'
-import ScrollProgress from '@/components/ScrollProgress'
-
-import ScrollSection from '@/components/ScrollSection'
-import SmoothScroll from '@/components/SmoothScroll'
-import { motion, AnimatePresence } from 'framer-motion'
-
-import IntroScreen from '@/components/IntroScreen'
+import { FedeScrollProgress } from "@/components/fede/FedeScrollProgress"
+import { FedeNavbar } from "@/components/fede/FedeNavbar"
+import { FedeHero } from "@/components/fede/FedeHero"
+import { FedeProjects } from "@/components/fede/FedeProjects"
+import { FedeAbout } from "@/components/fede/FedeAbout"
+import { FedeExperience } from "@/components/fede/FedeExperience"
+import { FedeCerts } from "@/components/fede/FedeCerts"
+import { FedeStack } from "@/components/fede/FedeStack"
+import { FedeResearch } from "@/components/fede/FedeResearch"
+import { FedeFooter } from "@/components/fede/FedeFooter"
 
 export default function Home() {
-  const [isContactOpen, setIsContactOpen] = useState(false)
-  const [hasEntered, setHasEntered] = useState(false)
+  const [contactOpen, setContactOpen] = useState(false)
 
   return (
-    <main className="min-h-screen bg-[#020205]">
-      <AnimatePresence mode="wait">
-        {!hasEntered && (
-          <IntroScreen key="intro-screen" onEnter={() => setHasEntered(true)} />
-        )}
-      </AnimatePresence>
+    <>
+      <FedeScrollProgress />
+      <CommandPalette />
+      <ContactCard isOpen={contactOpen} onClose={() => setContactOpen(false)} />
 
-      {hasEntered && (
-        <motion.div
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <ContactCard isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
-          <DynamicBackground />
-          <ScrollProgress />
-          <CursorTrail />
-          <CommandPalette />
-          <EasterEgg />
-          <Navbar onContactClick={() => setIsContactOpen(true)} />
-
-          <SmoothScroll>
-            <Hero onContactClick={() => setIsContactOpen(true)} />
-            
-            <ScrollSection id="about">
-              <About />
-            </ScrollSection>
-            
-            <ScrollSection id="experience">
-              <Experience />
-            </ScrollSection>
-            
-            <ScrollSection id="projects">
-              <Projects />
-            </ScrollSection>
-            
-            <ScrollSection id="publications">
-              <Publications />
-            </ScrollSection>
-            
-            <ScrollSection id="skills">
-              <Skills />
-            </ScrollSection>
-            
-            <ScrollSection id="github">
-              <GitHubSection />
-            </ScrollSection>
-            
-            <ScrollSection id="contact">
-              <Contact />
-            </ScrollSection>
-            
-            <ScrollSection id="footer">
-              <Footer />
-            </ScrollSection>
-          </SmoothScroll>
-        </motion.div>
-      )}
-    </main>
+      <main className="relative min-h-screen bg-[#0a0a0a] text-neutral-200 selection:bg-neutral-700 selection:text-[#fafaf9]">
+        <FedeNavbar />
+        <FedeHero onContact={() => setContactOpen(true)} />
+        <FedeProjects />
+        <FedeAbout />
+        <FedeExperience />
+        <FedeCerts />
+        <FedeStack />
+        <FedeResearch />
+        <FedeFooter onContact={() => setContactOpen(true)} />
+      </main>
+    </>
   )
 }

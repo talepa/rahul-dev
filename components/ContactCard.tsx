@@ -4,6 +4,7 @@ import * as React from "react"
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, Mail, Phone, Linkedin, Globe, Copy, Check } from "lucide-react"
+import { personal } from "@/lib/personal"
 
 interface ContactCardProps {
   isOpen: boolean
@@ -28,12 +29,12 @@ const ContactCard: React.FC<ContactCardProps> = ({ isOpen, onClose }) => {
   }
 
   const details = {
-    name: "RAHUL TALEPA",
-    email: "talepa.rahul6@gmail.com",
-    phone: "+91 70141 64372",
-    linkedin: "linkedin.com/in/rahultalepa",
-    location: "MUMBAI, MH / IND",
-    role: "AI Engineer"
+    name: personal.name.toUpperCase(),
+    email: personal.email,
+    phone: personal.phone,
+    linkedin: personal.linkedinPath,
+    location: personal.locationShort,
+    role: personal.roleTitle,
   }
 
   const copyToClipboard = (text: string, key: string) => {
@@ -193,8 +194,9 @@ const ContactCard: React.FC<ContactCardProps> = ({ isOpen, onClose }) => {
                 </button>
 
                 <a
-                  href="https://linkedin.com/in/rahultalepa"
+                  href={personal.linkedinUrl}
                   target="_blank"
+                  rel="noreferrer"
                   className="flex items-center justify-center gap-3 py-4 glass-strong rounded-2xl border border-white/10 hover:bg-white/5 transition-all group"
                 >
                   <Linkedin size={18} className="text-blue-500 group-hover:scale-110 transition-transform" />

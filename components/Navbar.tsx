@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { personal } from '@/lib/personal';
 
 const AnimatedNavLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
   const defaultTextColor = 'text-white/40';
@@ -88,7 +89,7 @@ export default function Navbar({ onContactClick }: { onContactClick: () => void 
 
   const loginButtonElement = (
     <a 
-      href="/resume.pdf" 
+      href={personal.resumeUrl} 
       target="_blank"
       className="px-6 py-2 sm:px-5 text-[10px] font-bold tracking-widest uppercase border border-white/10 bg-white/5 text-white/60 rounded-full hover:border-white/30 hover:text-white transition-all duration-200 w-full sm:w-auto text-center whitespace-nowrap"
     >

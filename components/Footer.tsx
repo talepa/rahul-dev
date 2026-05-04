@@ -1,5 +1,7 @@
 'use client'
 
+import { personal } from '@/lib/personal'
+
 const Footer = () => {
   return (
     <footer className="py-20 px-6 sm:px-10 lg:px-16 bg-transparent border-t border-white/5 ">
@@ -7,9 +9,9 @@ const Footer = () => {
         
         <div className="flex flex-col items-center md:items-start gap-2">
            <div className="text-xl font-bold tracking-tighter">
-             rahul<span className="text-white/40">.</span>
+             {personal.footerHandle}<span className="text-white/40">.</span>
            </div>
-           <p className="text-[10px] font-mono text-white/20 tracking-[0.2em] uppercase">Scale with Precision</p>
+           <p className="text-[10px] font-mono text-white/20 tracking-[0.2em] uppercase">{personal.footerMonospace}</p>
         </div>
 
         <div className="flex items-center gap-8 text-[10px] font-mono text-white/20 tracking-wider uppercase">

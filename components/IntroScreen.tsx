@@ -1,8 +1,9 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { ArrowRight, Sparkles } from 'lucide-react'
+import { personal } from '@/lib/personal'
 
 interface IntroScreenProps {
   onEnter: () => void
@@ -47,7 +48,7 @@ const IntroScreen = ({ onEnter }: IntroScreenProps) => {
              transition={{ delay: 0.4 }}
              className="text-[10px] font-bold tracking-[0.4em] uppercase text-white/40"
            >
-             Strategic AI Engineering
+             {personal.introTagline}
            </motion.h2>
            
            <motion.h1 
@@ -56,7 +57,7 @@ const IntroScreen = ({ onEnter }: IntroScreenProps) => {
              transition={{ delay: 0.6 }}
              className="text-4xl md:text-7xl font-bold tracking-tighter text-white"
            >
-             Rahul Talepa
+             {personal.name}
            </motion.h1>
         </div>
 
@@ -66,7 +67,7 @@ const IntroScreen = ({ onEnter }: IntroScreenProps) => {
           transition={{ delay: 0.8 }}
           className="text-white/60 leading-relaxed text-sm md:text-lg max-w-md mx-auto"
         >
-          Designing the future of intelligence. Focused on building high-performance systems and shifting models into real-world impact.
+          {personal.introBlurb}
         </motion.p>
 
         <motion.button
@@ -90,8 +91,8 @@ const IntroScreen = ({ onEnter }: IntroScreenProps) => {
 
       {/* Decorative Numbers/Data Strings */}
       <div className="absolute bottom-10 left-10 text-[10px] font-mono text-white/5 space-y-1">
-        <div>LAT: 19.0760° N</div>
-        <div>LON: 72.8777° E</div>
+        <div>{personal.latDisplay}</div>
+        <div>{personal.lonDisplay}</div>
       </div>
       <div className="absolute top-10 right-10 text-[10px] font-mono text-white/5">
         SYS_STATUS: READY_V2.0.4

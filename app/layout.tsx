@@ -1,31 +1,48 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from "next"
+import { DM_Sans, Fraunces } from "next/font/google"
+import "./globals.css"
 
-const inter = Inter({ subsets: ["latin"] });
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm",
+})
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-display",
+})
 
 export const metadata: Metadata = {
-  title: "Rahul Talepa | AI Engineer Portfolio",
-  description: "AI Engineer specializing in Machine Learning, LLM Engineering, and Semantic Search. Building intelligent systems that think, learn, and scale.",
-  keywords: ["AI Engineer", "Machine Learning", "LLM", "RAG", "Semantic Search", "Data Science"],
-  authors: [{ name: "Rahul Talepa" }],
+  title: "Rahul Talepa | AI Engineer & Data Scientist",
+  description:
+    "Semantic search, RAG, and production ML — Rahul Talepa builds intelligent systems that ship. Mumbai · Open to collaboration.",
+  keywords: [
+    "AI Engineer",
+    "Machine Learning",
+    "RAG",
+    "Semantic Search",
+    "Data Science",
+    "Python",
+  ],
+  authors: [{ name: "Rahul Talepa", url: "https://linkedin.com/in/rahultalepa/" }],
   openGraph: {
     title: "Rahul Talepa | AI Engineer",
-    description: "Building intelligent systems that think, learn, and scale.",
+    description:
+      "Semantic search, RAG, and production ML grounded in rigorous data science.",
     type: "website",
   },
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.className} bg-background text-foreground antialiased`}>
+    <html lang="en" className={`${dmSans.variable} ${fraunces.variable}`}>
+      <body className="min-h-screen bg-[#0a0a0a] font-sans text-neutral-200 antialiased">
         {children}
       </body>
     </html>
-  );
+  )
 }
