@@ -1,107 +1,93 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import { useRef } from 'react'
-import { Briefcase, Calendar, Terminal } from 'lucide-react'
+import { GraduationCap } from "lucide-react";
+import { motion, useScroll, useSpring } from "motion/react";
+import { useRef } from "react";
+import { education, experience } from "@/lib/data";
+import { Reveal, SectionLabel, SplitWords } from "./ui";
 
-const experiences = [
-  {
-    id: 1,
-    role: 'AI Engineer Intern',
-    company: 'Stuvio',
-    period: 'February 2026 – Present',
-    description: 'Focusing on building and deploying real-world AI solutions. Architecting scalable intelligent systems and semantic search pipelines.',
-    skills: ['GenAI', 'LangChain', 'OpenAI APIs', 'LLM Engineering'],
-  },
-  {
-    id: 2,
-    role: 'Software Engineer & Data Analyst Intern',
-    company: 'Statskew',
-    period: '2025',
-    description: 'Bridge the gap between data insights and software execution. Performed deep data analysis and supported development of internal tools.',
-    skills: ['Python', 'SQL', 'Data Analytics', 'Pandas'],
-  },
-  {
-    id: 3,
-    role: 'Instructor',
-    company: 'NYX & Cyber3ra',
-    period: '2024',
-    description: 'Mentoring at Cyber3ra. Focused on data science, statistics, and machine learning fundamentals.',
-    skills: ['Statistics', 'EDA', 'Machine Learning', 'Teaching'],
-  },
-]
+function Points({ points }: { points: string[] }) {
+  const ref = useRef<HTMLOListElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.8", "end 0.6"] });
+  const line = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.3 });
 
-const Experience = () => {
   return (
-    <section id="experience" className="py-32 px-6 sm:px-10 lg:px-16 relative bg-transparent overflow-hidden">
-      {/* Background Decorative Element */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] -z-10" />
-
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
-          <div className="space-y-4">
-            <h2 className="text-3xl font-bold tracking-tight">Experience</h2>
-            <p className="text-white/40 max-w-sm text-sm">Professional journey through the lens of artificial intelligence and data science.</p>
-          </div>
-          <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-white/20 tracking-tighter uppercase">
-            <span>Runtime: 26 MONTHS</span>
-            <div className="w-8 h-[1px] bg-white/10" />
-            <span>LAST_SYNC: APR_2026</span>
-          </div>
-        </div>
-
-        <div className="space-y-8 relative">
-          {/* Vertical Connection Line */}
-          <div className="absolute left-[27px] top-0 bottom-0 w-[1px] bg-white/5" />
-
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={exp.id}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="flex gap-10 group"
-            >
-              {/* Icon Marker */}
-              <div className="relative z-10">
-                <div className="w-14 h-14 rounded-2xl bg-background border border-white/10  flex items-center justify-center group-hover:border-blue-500/50 transition-colors shadow-2xl">
-                  <Terminal className="w-5 h-5 text-white/40 group-hover:text-white transition-all" />
-                </div>
-                {index === 0 && (
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-full border-2 border-background animate-pulse" />
-                )}
-              </div>
-
-              {/* Card Content */}
-              <div className="flex-1 space-y-4 pb-12 border-b border-white/5  last:border-0 last:pb-0">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                  <div className="space-y-1">
-                    <h3 className="text-xl font-bold tracking-tight text-white/90 group-hover:text-white transition-colors">{exp.role}</h3>
-                    <div className="flex items-center gap-3 text-sm font-medium">
-                      <span className="text-white/60">{exp.company}</span>
-                      <span className="text-white/20">•</span>
-                      <span className="text-blue-400/80 font-mono text-xs">{exp.period}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <p className="text-sm text-white/40 leading-relaxed max-w-2xl">{exp.description}</p>
-                
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {exp.skills.map(skill => (
-                    <span key={skill} className="px-3 py-1 rounded-full bg-white/5 border border-white/5  text-[10px] font-mono text-white/40 tracking-wider uppercase group-hover:border-white/10 dark:group-hover:border-white/10 group-hover:text-white transition-all">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
+    <ol ref={ref} className="relative pl-8">
+      <span aria-hidden className="absolute left-0 top-2 h-[calc(100%-1rem)] w-px bg-line" />
+      <motion.span aria-hidden style={{ scaleY: line }} className="absolute left-0 top-2 h-[calc(100%-1rem)] w-px origin-top bg-ember" />
+      {points.map((point, i) => (
+        <li key={i} className="border-b border-line py-5 last:border-0">
+          <Reveal className="grid grid-cols-[40px_1fr] gap-3">
+            <span className="pt-1.5 font-mono text-xs text-dim">{String(i + 1).padStart(2, "0")}</span>
+            <p className="text-lg leading-relaxed text-bone/90">{point}</p>
+          </Reveal>
+        </li>
+      ))}
+    </ol>
+  );
 }
 
-export default Experience
+export default function Experience() {
+  return (
+    <section id="experience" className="relative border-t border-line bg-ink-2/40 px-4 py-20 sm:px-6 sm:py-28">
+      <div className="mx-auto max-w-[1400px]">
+        <SectionLabel index="02" label="Experience" />
+        <h2 className="mt-10 max-w-5xl text-[clamp(2.6rem,6vw,5.6rem)] font-semibold leading-[0.92] tracking-[-0.05em]">
+          <SplitWords text="Where the models" />{" "}
+          <SplitWords text="meet production." delay={0.2} className="font-serif font-normal italic text-ember" />
+        </h2>
+
+        {experience.map((job) => (
+          <article key={job.company} className="mt-14 grid gap-10 border-t border-line pt-10 lg:grid-cols-12">
+            <div className="lg:col-span-5">
+              <div className="lg:sticky lg:top-32">
+                <div className="flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-ash">
+                  {job.current && (
+                    <span className="inline-flex items-center gap-2 rounded-full border border-ember/40 bg-ember/10 px-3 py-1 text-ember">
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-ember" />
+                      Current
+                    </span>
+                  )}
+                  <span>{job.period}</span>
+                </div>
+                <h3 className="mt-5 text-[clamp(2.4rem,4.6vw,4rem)] font-semibold leading-none tracking-[-0.05em]">{job.company}</h3>
+                <p className="mt-3 font-serif text-3xl italic text-bone/85">{job.role}</p>
+                <p className="mt-1 text-sm text-ash">{job.location}</p>
+                <ul className="mt-6 flex flex-wrap gap-2">
+                  {job.tags.map((tag) => (
+                    <li key={tag} className="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-ash">
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7">
+              <Points points={job.points} />
+            </div>
+          </article>
+        ))}
+
+        <Reveal className="mt-14">
+          <div className="grid items-center gap-6 rounded-3xl border border-line bg-ink p-7 sm:grid-cols-[auto_1fr_auto] sm:p-9">
+            <div className="grid h-14 w-14 place-items-center rounded-2xl bg-bone text-ink">
+              <GraduationCap size={24} />
+            </div>
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-ash">Education · {education.period}</p>
+              <h3 className="mt-2 text-2xl font-medium tracking-[-0.02em]">{education.degree}</h3>
+              <p className="text-ash">
+                {education.school}, {education.location}
+              </p>
+            </div>
+            <div className="sm:text-right">
+              <p className="text-5xl font-semibold tracking-[-0.05em]">{education.cgpa}</p>
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-ash">CGPA</p>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
