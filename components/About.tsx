@@ -82,7 +82,7 @@ export default function About() {
 
         <div className="mt-14 grid grid-cols-2 border-l border-t border-line lg:grid-cols-4">
           {stats.map((stat, i) => (
-            <Reveal key={stat.label} delay={i * 0.08} className="group relative border-b border-r border-line p-6 sm:p-8">
+            <Reveal key={stat.label} delay={i * 0.08} className="group relative border-b border-r border-line p-5 sm:p-8">
               <span aria-hidden className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-ember transition-transform duration-700 group-hover:scale-x-100" />
               <div className="text-[clamp(2.6rem,5vw,4.6rem)] font-semibold leading-none tracking-[-0.05em]">
                 <Counter value={stat.value} />

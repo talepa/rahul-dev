@@ -123,11 +123,11 @@ function ProjectCard({
   const scale = useTransform(progress, [i / total, 1], [1, 1 - (total - 1 - i) * 0.05]);
 
   return (
-    <div className="stack:sticky stack:top-0 stack:flex stack:h-[78vh] stack:items-center">
+    <div className="stack:sticky stack:top-0 stack:flex stack:h-[86vh] stack:items-center">
       <motion.article
         style={stacked ? { scale, top: `${i * 26}px` } : undefined}
         className={clsx(
-          "relative w-full origin-top overflow-hidden rounded-[28px] border p-6 sm:p-10 lg:p-12",
+          "relative w-full origin-top overflow-hidden rounded-[24px] border p-5 sm:rounded-[28px] sm:p-10 lg:p-12",
           "shadow-[0_-30px_80px_-40px_rgba(0,0,0,0.8)]",
           t.card,
         )}
@@ -140,24 +140,24 @@ function ProjectCard({
               </span>
               <span>{project.kicker}</span>
             </div>
-            <h3 className="mt-5 text-[clamp(2.2rem,4.4vw,4.2rem)] font-semibold leading-[0.95] tracking-[-0.05em]">{project.name}</h3>
-            <p className={clsx("mt-5 max-w-2xl leading-relaxed sm:text-lg", t.muted)}>{project.summary}</p>
-            <ul className="mt-6 space-y-2.5">
-              {project.highlights.map((h) => (
-                <li key={h} className="flex gap-3 text-[15px] leading-snug">
+            <h3 className="mt-4 text-[clamp(1.8rem,4.4vw,4.2rem)] font-semibold leading-[0.95] tracking-[-0.05em] sm:mt-5">{project.name}</h3>
+            <p className={clsx("mt-3 line-clamp-3 max-w-2xl text-[15px] leading-relaxed sm:mt-5 lg:line-clamp-none lg:text-lg", t.muted)}>{project.summary}</p>
+            <ul className="mt-4 space-y-2 sm:mt-6 sm:space-y-2.5">
+              {project.highlights.map((h, k) => (
+                <li key={h} className={clsx("flex gap-3 text-[14px] leading-snug sm:text-[15px]", k > 1 && "hidden lg:flex")}>
                   <span className={clsx("mt-[7px] h-1.5 w-1.5 shrink-0 rotate-45", t.bullet)} />
                   {h}
                 </li>
               ))}
             </ul>
-            <ul className="mt-7 flex flex-wrap gap-2">
-              {project.stack.map((s) => (
-                <li key={s} className={clsx("rounded-full border px-3 py-1 font-mono text-[11px]", t.chip)}>
+            <ul className="mt-5 flex flex-wrap gap-1.5 sm:mt-7 sm:gap-2">
+              {project.stack.map((s, k) => (
+                <li key={s} className={clsx("rounded-full border px-2.5 py-1 font-mono text-[11px] sm:px-3", t.chip, k > 3 && "hidden lg:block")}>
                   {s}
                 </li>
               ))}
             </ul>
-            <div className="mt-auto flex items-end gap-6 pt-8">
+            <div className="mt-auto flex items-end gap-4 pt-6 sm:gap-6 sm:pt-8">
               <a href={project.repo} target="_blank" rel="noreferrer" data-cursor="Code" className="group inline-flex items-center gap-3 text-sm font-medium">
                 <span className={clsx("grid h-11 w-11 place-items-center rounded-full transition-transform duration-500 group-hover:rotate-45", t.button)}>
                   <ArrowUpRight size={18} />
@@ -165,12 +165,12 @@ function ProjectCard({
                 <span className="link-underline">View on GitHub</span>
               </a>
               <div className="ml-auto text-right">
-                <div className="text-4xl font-semibold leading-none tracking-[-0.05em] sm:text-5xl">{project.metric.value}</div>
+                <div className="text-3xl font-semibold leading-none tracking-[-0.05em] sm:text-5xl">{project.metric.value}</div>
                 <div className={clsx("mt-1 font-mono text-[11px] uppercase tracking-[0.18em]", t.muted)}>{project.metric.label}</div>
               </div>
             </div>
           </div>
-          <div className="hidden sm:block lg:col-span-5">
+          <div className="hidden lg:col-span-5 lg:block">
             <Pipeline steps={project.pipeline} t={t} />
           </div>
         </div>
@@ -194,8 +194,9 @@ function Lab() {
         </a>
       </div>
       <ul className="mt-10 grid border-t border-line lg:grid-cols-2 lg:gap-x-10">
-        {lab.map((p) => (
+        {lab.map((p, i) => (
           <li key={p.name}>
+            <Reveal delay={(i % 2) * 0.08} y={18}>
             <a
               href={p.repo}
               target="_blank"
@@ -212,6 +213,7 @@ function Lab() {
               </span>
               <ArrowUpRight className="relative shrink-0 text-ash transition-all duration-500 group-hover:rotate-45 group-hover:text-ink" size={20} />
             </a>
+            </Reveal>
           </li>
         ))}
       </ul>
@@ -221,7 +223,7 @@ function Lab() {
 
 export default function Work() {
   const container = useRef<HTMLDivElement>(null);
-  const stacked = useMediaQuery("(min-width: 1024px) and (min-height: 760px)");
+  const stacked = useMediaQuery("(min-height: 700px)");
   const { scrollYProgress } = useScroll({ target: container, offset: ["start start", "end end"] });
 
   return (

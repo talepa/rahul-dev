@@ -1,11 +1,12 @@
 "use client";
 
 import clsx from "clsx";
+import { motion } from "motion/react";
 import { useEffect, useRef, type PointerEvent, type ReactNode } from "react";
 import { stack } from "@/lib/data";
-import { SectionLabel, SplitWords } from "./ui";
+import { SectionLabel, SplitWords, ease } from "./ui";
 
-function SpotCard({ children, className }: { children: ReactNode; className?: string }) {
+function SpotCard({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const onMove = (e: PointerEvent<HTMLDivElement>) => {
     const el = ref.current;
@@ -15,14 +16,22 @@ function SpotCard({ children, className }: { children: ReactNode; className?: st
     el.style.setProperty("--y", `${e.clientY - r.top}px`);
   };
   return (
-    <div ref={ref} onPointerMove={onMove} className={clsx("group relative overflow-hidden rounded-3xl border border-line bg-ink-2", className)}>
+    <motion.div
+      ref={ref}
+      onPointerMove={onMove}
+      initial={{ opacity: 0, y: 34, scale: 0.98 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-8% 0px" }}
+      transition={{ duration: 0.75, ease, delay }}
+      className={clsx("group relative overflow-hidden rounded-3xl border border-line bg-ink-2", className)}
+    >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{ background: "radial-gradient(420px circle at var(--x) var(--y), rgb(255 90 31 / 0.13), transparent 60%)" }}
       />
       <div className="relative h-full">{children}</div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -168,7 +177,7 @@ function EmbeddingField() {
   }, []);
 
   return (
-    <div ref={wrapRef} data-cursor="Query" className="relative h-full min-h-[320px] touch-pan-y">
+    <div ref={wrapRef} data-cursor="Query" className="relative h-full min-h-[260px] touch-pan-y sm:min-h-[320px]">
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" aria-label="Interactive visualisation of nearest-neighbour search in an embedding space" role="img" />
       <div className="pointer-events-none absolute left-6 top-6 font-mono text-[11px] uppercase tracking-[0.18em] text-ash">
         embedding space <span className="text-ember">· k = 6</span>
@@ -204,7 +213,7 @@ export default function Stack() {
             <EmbeddingField />
           </SpotCard>
           {stack.map((group, i) => (
-            <SpotCard key={group.group} className={clsx("p-6 sm:p-7", i < 2 ? "lg:col-span-3" : "lg:col-span-2")}>
+            <SpotCard key={group.group} delay={0.06 * (i + 1)} className={clsx("p-6 sm:p-7", i < 2 ? "lg:col-span-3" : "lg:col-span-2")}>
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <h3 className="text-xl font-medium tracking-[-0.02em]">{group.group}</h3>

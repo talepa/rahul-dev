@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* Stacked sticky project cards only when the viewport is big enough to show a whole card */
-@custom-variant stack (@media (min-width: 1024px) and (min-height: 760px));
+@custom-variant stack (@media (min-height: 700px));
 
 @theme {
   --color-ink: #0c0c0b;

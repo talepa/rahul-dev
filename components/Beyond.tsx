@@ -6,7 +6,8 @@ import { motion } from "motion/react";
 import { credentials } from "@/lib/data";
 import { SectionLabel, SplitWords, ease } from "./ui";
 
-const card = "group relative flex h-full flex-col overflow-hidden rounded-[26px] border p-7 transition-transform duration-500 will-change-transform hover:-translate-y-1.5 sm:p-8";
+const card =
+  "group relative flex h-auto w-[86vw] shrink-0 snap-center flex-col sm:h-full overflow-hidden rounded-[26px] border p-6 transition-transform duration-500 will-change-transform sm:w-auto sm:shrink sm:p-8 sm:hover:-translate-y-1.5";
 
 function Enter({ children, delay = 0, className }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
@@ -37,9 +38,12 @@ export default function Beyond() {
           <p className="max-w-sm text-ash">
             A peer-reviewed paper, a generative-AI certification, and one book that has nothing to do with engineering.
           </p>
+          <p className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-dim sm:hidden">
+            Swipe <span aria-hidden className="text-ember">&rarr;</span>
+          </p>
         </div>
 
-        <div className="mt-12 grid gap-4 lg:grid-cols-3">
+        <div className="-mx-4 mt-10 flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain px-4 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:mt-12 sm:grid sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
           <Enter className={clsx(card, "border-line bg-ink-2 lg:col-span-2")}>
             <div className="flex items-center justify-between gap-4 font-mono text-[11px] uppercase tracking-[0.18em] text-ash">
               <span className="flex items-center gap-2 text-ember">
