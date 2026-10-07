@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import Cursor from "@/components/Cursor";
 import SmoothScroll from "@/components/SmoothScroll";
 import { profile } from "@/lib/data";
@@ -27,6 +28,19 @@ export const viewport: Viewport = { themeColor: "#0c0c0b" };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable} ${instrument.variable} ${jetbrains.variable}`}>
+      <head>
+        {/* Google tag (gtag.js) */}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-0FBKN2QRG8" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-0FBKN2QRG8');
+          `}
+        </Script>
+      </head>
       <body>
         <SmoothScroll />
         <Cursor />
