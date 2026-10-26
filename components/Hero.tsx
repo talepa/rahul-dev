@@ -6,7 +6,6 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { profile } from "@/lib/data";
 import { scrollToId } from "@/lib/scroll";
-import AgentTrace from "./AgentTrace";
 import Photo from "./Photo";
 import { Magnetic, ease } from "./ui";
 
@@ -52,7 +51,7 @@ export default function Hero() {
               <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-ember" />
               <span className="relative h-2 w-2 rounded-full bg-ember" />
             </span>
-            Now — RAG &amp; search at Stuvio Digital
+            Now — AI Engineer at Techmonk India
           </span>
           <span className="hidden sm:inline">Mumbai, India</span>
         </motion.div>
@@ -80,7 +79,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9, duration: 0.9, ease }}
             >
-              <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.18em] text-ember">AI Engineer — LLM systems</p>
+              <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.18em] text-ember">AI Engineer</p>
               <p className="mt-4 max-w-xl text-xl leading-snug tracking-[-0.02em] text-bone sm:text-2xl">{profile.tagline}</p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Magnetic>
@@ -139,22 +138,22 @@ export default function Hero() {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.9, ease }}
-          className="mt-12 grid gap-8 border-t border-line pt-8 lg:grid-cols-12"
+          className="mt-12 flex flex-wrap items-end justify-between gap-8 border-t border-line pt-8"
         >
-          <div className="lg:col-span-7">
-            <AgentTrace />
-          </div>
-          <div className="flex flex-col justify-between gap-6 lg:col-span-4 lg:col-start-9">
-            <dl className="grid grid-cols-2 gap-6 font-mono text-[11px] uppercase tracking-[0.18em] lg:grid-cols-1">
-              <div>
-                <dt className="text-dim">Focus</dt>
-                <dd className="mt-1 text-bone">RAG · Agents · Retrieval</dd>
-              </div>
-              <div>
-                <dt className="text-dim">Currently</dt>
-                <dd className="mt-1 text-bone">Stuvio Digital</dd>
-              </div>
-            </dl>
+          <dl className="grid grid-cols-2 gap-x-12 gap-y-6 font-mono text-[11px] uppercase tracking-[0.18em] sm:grid-cols-3">
+            <div>
+              <dt className="text-dim">I build</dt>
+              <dd className="mt-1 text-bone">AI assistants &amp; AI search</dd>
+            </div>
+            <div>
+              <dt className="text-dim">Currently</dt>
+              <dd className="mt-1 text-bone">Techmonk India</dd>
+            </div>
+            <div>
+              <dt className="text-dim">Based in</dt>
+              <dd className="mt-1 text-bone">Mumbai, India</dd>
+            </div>
+          </dl>
             <button
               onClick={() => scrollToId("about")}
               className="group hidden items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-ash transition-colors hover:text-bone lg:flex"
@@ -168,7 +167,6 @@ export default function Hero() {
                 />
               </span>
             </button>
-          </div>
         </motion.div>
       </div>
     </section>
