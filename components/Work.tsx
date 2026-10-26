@@ -56,10 +56,10 @@ function Pipeline({ steps, t }: { steps: Flagship["pipeline"]; t: Theme }) {
   return (
     <div className={clsx("h-full rounded-2xl border p-5 sm:p-6", t.panel)}>
       <div className={clsx("mb-4 flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.18em]", t.muted)}>
-        <span>Pipeline</span>
+        <span>How it works</span>
         <span className="flex items-center gap-2">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current" />
-          graph
+          step by step
         </span>
       </div>
       <ol ref={ref} className="relative">
